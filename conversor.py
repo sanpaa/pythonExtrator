@@ -19,9 +19,4 @@ for i in df['Nome Prestador']:
 file1.close()
 
 
-    #df.to_excel("output.xlsx")
-
-#print(df[excel_col])
-
-
 

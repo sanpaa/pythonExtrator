@@ -14,22 +14,42 @@ sqlTxt = """select * from custom_tasy.AUX_copart_lojas_cem_fesp"""
 cursor.execute(sqlTxt)
 file1 = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\teste2.txt", mode='w')
 
+row = cursor.fetchone()
+b = row
+b = str(b)
+
 while True:
-    row = cursor.fetchone()
-    b = row
-    b = str(b)
-    b = b.replace(",","") # ,
-    b = b.replace(")","") # )
-    b = b.replace("(","") # (
-    b = b.replace("'","") # '
-    b = b.replace("datetime","") # datetime
-    b = b.replace(".23", "")  # datetime
+    #b = b.replace(",","") # ,
+    #b = b.replace(")","") # )
+    #b = b.replace("(","") # (
+    #b = b.replace("'","") # '
+    #b = b.replace("datetime","") # datetime
+    #b = b.replace(".2023", "")  # datetime
     file1.writelines(b)
     file1.write('\n')
+
+
     if row is None:
         break
+
+
 file1.close()
 
+#manipulação do arquivo / tratando arquivo não existente
+try:
+    f = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\teste2.txt", "r")
+    a = f.readlines()
+    #for linha in a:
+        #print(linha, "\n")
+    #print(len(a))
+    f.close()
+except FileNotFoundError:
+    f = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\teste2.txt", 'w+')
+    a = f.writelines("Vazio")
+    f.close()
+    print("Arquivo não encontrado, porém, criado.")
+
+#conta as linhas do select
 rowCount = cursor.rowcount
 print("number of inserted rows =", rowCount)
 

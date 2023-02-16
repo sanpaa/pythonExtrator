@@ -2,11 +2,10 @@ import pandas as pd
 
 df = pd.read_excel('C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\140_Copart 12.2022.xlsx', None)
 
-print(df)
+print(df["Planilha1"]['Nome Prestador'])
 
 def extrairdadosexcel(nomeentrada,nomesaida):
     file1 = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\"+nomesaida+".txt", 'w+')
-
     for i in df["Planilha1"][nomeentrada]:
         b = i
         b = str(b)
@@ -14,7 +13,7 @@ def extrairdadosexcel(nomeentrada,nomesaida):
         if b == 'NaN' or b == 'nan' or b == 'Nan':
             continue
         else:
-            file1.write('\n')
+            file1.write(',')
         file1.writelines(b)
     file1.close()
 

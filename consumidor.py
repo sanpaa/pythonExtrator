@@ -1,5 +1,4 @@
-# Nome Prestador -X- Numero Documento -X- Nome Usuario -X- Numero Doc Origem -X- Data Realizacao -X- Data Realizacao,
-# Cod Procedimento,Descricao Procedimento,Contratante,Qtde Procedimento,Valor Coparticipacao,
+import conector
 
 Nome_prestador = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Nome_Prestador.txt", 'r')
 Numero_Documento = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Numero_Documento.txt", 'r')
@@ -36,12 +35,22 @@ Qtde_Procedimento = tratamentotexto(Qtde_Procedimento)
 Valor_Coparticipacao = tratamentotexto(Valor_Coparticipacao)
 
 i = 0
+resultado = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Resultado.txt", 'w+')
+
 while i < len(List_Numero_Documento):
-    print(List_Nome_prestador[i] + " " + List_Numero_Documento[i] + " " + List_Nome_Usuario[i] + " " + List_Numero_Doc_Origem[i])
+    sql = """insert into custom_tasy.AUX_copart_lojas_cem_fesp
+        (SEQ,NNUMEUSUA,NTITUUSUA,COMPETENCIA,RESPONSAVEL,NUMERO,NOME,DOC,CODIGO_SERVICO,DESCRICAO,NOME_PRESTADOR,QUANTIDADE,VALOR_COPARTICIPACAO)
+        values (:seq,:num,:numusu,:comp,:respon,:numero,:nome_grande,:doc,:codigo_serv,:descricao,:nome_prest,:qty,:valor_copart)
+        """
+    conector.executeSQL(sql,[i,231,21,22,List_Nome_prestador[i],40,List_Nome_Usuario[i],List_Numero_Documento[i],83537,Descricao_Procedimento[i],List_Nome_prestador[i],Qtde_Procedimento[i],Valor_Coparticipacao[i]])
+
+    stringResultado = List_Nome_prestador[i] + " " + List_Numero_Documento[i] + " " + List_Nome_Usuario[i] + " " + List_Numero_Doc_Origem[i] + " \n " + List_Data_Validade[i]
+
+    resultado.writelines(stringResultado)
+
     i = i + 1
 
 #print(List_Nome_prestador[0] + " " + List_Numero_Documento[0] + " " + List_Nome_Usuario[0] + " " + List_Numero_Doc_Origem[0])
 
 #lista tem 1493 elementos
 #print(vetorlinha[77])
-

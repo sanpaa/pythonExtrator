@@ -1,8 +1,9 @@
 import pandas as pd
 
-df = pd.read_excel('C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\140_Copart 12.2022.xlsx', None)
+df = pd.read_excel('C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\140_Copart 03.2023.xlsx', None) #usecols="A,B,C,F
 
-print(df["Planilha1"]['Nome Prestador'])
+print(df['Planilha1']['Data Realizacao'])
+
 
 def extrairdadosexcel(nomeentrada,nomesaida):
     file1 = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\"+nomesaida+".txt", 'w+')
@@ -10,7 +11,7 @@ def extrairdadosexcel(nomeentrada,nomesaida):
         b = i
         b = str(b)
         print(b)
-        if b == 'NaN' or b == 'nan' or b == 'Nan':
+        if b == 'NaN' or b == 'nan' or b == 'Nan' or b == 'NaT':
             continue
         else:
             file1.write(',')

@@ -60,6 +60,7 @@ Algumas anotações que merecem atenção abaixo:
 
 <h7 style = bold> Lembrando que o contador só funciona depois de usar o cursor.execute ! </h7>
 <br>
+
 <h4> Manipulação de arquivos existentes e/ou não:  </h4>
     
     #try:

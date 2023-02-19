@@ -44,7 +44,6 @@ Qtde_Procedimento = Qtde_Procedimento.readlines()
 Valor_Coparticipacao = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Valor_Coparticipacao.txt", 'r')
 Valor_Coparticipacao = Valor_Coparticipacao.readlines()
 
-
 #Tratamento de Texto/Data
 List_Nome_prestador = tratamentotexto(Nome_prestador)
 List_Numero_Documento = tratamentotexto(Numero_Documento)

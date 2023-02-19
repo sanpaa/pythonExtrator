@@ -15,20 +15,12 @@ connection = cx_Oracle.connect(f"{userdb}/{passwdb}@{enderdb}/{namedb}")
 
 cursor = connection.cursor()
 
-
 def executeSQL(sql,dados):
     connection = cx_Oracle.connect(f"{userdb}/{passwdb}@{enderdb}/{namedb}")
     cursor = connection.cursor()
     cursor.execute(sql,dados)
     connection.commit()
     cursor.close()
-
-
-
-#file1.close()
-
-
-
 
 connection.commit()
 

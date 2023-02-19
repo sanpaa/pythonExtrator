@@ -1,21 +1,23 @@
 import cx_Oracle
+import os
+from dotenv import load_dotenv
 import datetime as dt
+
+load_dotenv()
+userdb = os.getenv("cst_dbora")
+passwdb = os.getenv("als_dbora")
+enderdb = os.getenv("ender_dbora")
+namedb = os.getenv("nm_dbora")
 
 cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\paulo.sanches\Desktop\instantclient_21_9")
 
-# dsn = cx_Oracle.makedsn(host='tasyora-scan.unimedsaltoitu.local', port=1521)
-connection = cx_Oracle.connect("custom_tasy/aloisk@192.168.0.223:1521/tasyt")
+connection = cx_Oracle.connect(f"{userdb}/{passwdb}@{enderdb}/{namedb}")
 
 cursor = connection.cursor()
 
-# sqlTxt = """select * from custom_tasy.AUX_copart_lojas_cem_fesp"""
-# row = cursor.fetchone()
-# b = row
-# b = str(b)
-
 
 def executeSQL(sql,dados):
-    connection = cx_Oracle.connect("custom_tasy/aloisk@192.168.0.223:1521/tasyt")
+    connection = cx_Oracle.connect(f"{userdb}/{passwdb}@{enderdb}/{namedb}")
     cursor = connection.cursor()
     cursor.execute(sql,dados)
     connection.commit()
@@ -25,23 +27,8 @@ def executeSQL(sql,dados):
 
 #file1.close()
 
-#manipulação do arquivo / tratando arquivo não existente
-#try:
- #   f = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\teste2.txt", "r")
- #   a = f.readlines()
-    #for linha in a:
-        #print(linha, "\n")
-#    #print(len(a))
-#   f.close()
-#except FileNotFoundError:
-#    f = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\teste2.txt", 'w+')
-#    a = f.writelines("Vazio")
-#    f.close()
-#    print("Arquivo não encontrado, porém, criado.")
 
-# #conta as linhas do select
-# rowCount = cursor.rowcount
-# print("number of inserted rows =", rowCount)
+
 
 connection.commit()
 

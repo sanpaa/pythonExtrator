@@ -59,3 +59,20 @@ Algumas anotações que merecem atenção abaixo:
     # print("Numero de linhas inseridas = ", ContadorLinha)
 
 <h7 style = bold> Lembrando que o contador só funciona depois de usar o cursor.execute ! </h7>
+
+<h4> Manipulação de arquivos existentes e/ou não:  </h4>
+
+    #manipulação do arquivo / tratando arquivo não existente
+    #try:
+    #   f = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\teste2.txt", "r")
+    #   a = f.readlines()
+    #   for linha in a:
+    #       print(linha, "\n")
+    #       print(len(a))
+    #   f.close()
+    #except FileNotFoundError:
+    #    f = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\teste2.txt", 'w+')
+    #    a = f.writelines("Vazio")
+    #    f.close()
+    #    print("Arquivo não encontrado, porém, criado.")
+

@@ -18,8 +18,7 @@ def extrairdadosexcel(nomeentrada,nomesaida):
         file1.writelines(b)
     file1.close()
 
-# Nome Prestador -X- Numero Documento -X- Nome Usuario -X- Numero Doc Origem -X- Data Realizacao -X- Data Realizacao,
-# Cod Procedimento,Descricao Procedimento,Contratante,Qtde Procedimento,Valor Coparticipacao,
+
 extrairdadosexcel('Nome Prestador','Nome_Prestador')
 extrairdadosexcel('Numero Documento','Numero_Documento')
 extrairdadosexcel('Nome Usuario','Nome_Usuario')

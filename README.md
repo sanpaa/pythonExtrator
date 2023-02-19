@@ -1,6 +1,19 @@
-# PyExtract
+<h1 id="title">PyExtract </h1>
+<style>
+#title{
+    font-size:50px
+}
+#anotacoes {
+    font-size:30px
+
+}
+#extras {
+    font-size:30px
+}
+</style>
+
 <h4>Ultima atualização: 19/02/2023 </h4>
-<h2>
+<h2 id='anotacoes'>
 Algumas anotações que merecem atenção abaixo:
 </h2>
   
@@ -22,7 +35,7 @@ Algumas anotações que merecem atenção abaixo:
     connection = cx_Oracle.connect(user="usuario", password='senha',
                                    dsn=dsn,
                                    encoding="UTF-8")
-
+<br>
 <h4>
     Sendo assim, pós conexão, sendo obrigatorio fazer um cursor para commit e push no banco de dados. 
 </h4>
@@ -35,8 +48,26 @@ Algumas anotações que merecem atenção abaixo:
     
     # E por fim, o commit que envia para o banco de dados:
     connection.commit()
-
+<br>
 <h4> E o mais importante de todos os comandos, o close da conexão: </h4>
     
     # Não podemos deixar a conexão aberta, mas a IDE do Python provavelmente irá alertar caso não feche.
     cursor.close()
+
+<br>
+<h2 id='extras'> Extras: </h2>
+<h4> Como usar select pelo Python</h4>
+
+    # sqlTxt = """select * from custom_tasy.AUX_copart_lojas_cem_fesp"""
+    # row = cursor.fetchone()
+    # b = row
+    # b = str(b)
+    # print(b)
+
+<br>
+<h4> Contar linhas de uma inserção ou select: </h4>
+    
+    # ContadorLinha = cursor.rowcount
+    # print("Numero de linhas inseridas = ", ContadorLinha)
+
+<h7 style = bold> Lembrando que o contador só funciona depois de usar o cursor.execute ! </h7>

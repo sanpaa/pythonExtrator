@@ -45,7 +45,7 @@ Valor_Coparticipacao = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\V
 Valor_Coparticipacao = Valor_Coparticipacao.readlines()
 
 
-#tratamento texto
+#Tratamento de Texto/Data
 List_Nome_prestador = tratamentotexto(Nome_prestador)
 List_Numero_Documento = tratamentotexto(Numero_Documento)
 List_Nome_Usuario = tratamentotexto(Nome_Usuario)
@@ -57,28 +57,17 @@ List_Contratante = tratamentotexto(Contratante)
 List_Qtde_Procedimento = tratamentotexto(Qtde_Procedimento)
 List_Valor_Coparticipacao = tratamentotexto(Valor_Coparticipacao)
 
+#Tratamento Especifico para Data
 Data_Realizacao_Tratado = tratamentodata(List_Data_Realizacao)
-print(Data_Realizacao_Tratado)
 Data_Validade_Tratado = tratamentodata(List_Data_Validade)
 
 i = 0
-resultado = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Resultado.txt", 'w+')
-# print([List_Nome_prestador[0],List_Nome_Usuario[0],List_Numero_Documento[0],Data_Realizacao_tratado[0],List_Nome_prestador[0],Descricao_Procedimento[0],Qtde_Procedimento[0],Valor_Coparticipacao[0]])
-
 while i < len(List_Numero_Documento):
-    linha = [i+1750,231,21,22,List_Nome_prestador[i],40,List_Nome_Usuario[i],List_Numero_Documento[i],Data_Realizacao_Tratado[i],Data_Validade_Tratado[i],83537,List_Descricao_Procedimento[i],List_Nome_prestador[i],List_Qtde_Procedimento[i],List_Valor_Coparticipacao[i]]
     sql = """
         insert into custom_tasy.AUX_copart_lojas_cem_fesp
         (SEQ,NNUMEUSUA,NTITUUSUA,COMPETENCIA,RESPONSAVEL,NUMERO,NOME,DOC,DATA_ATENDIMENTO,DATA_VENCIMENTO,CODIGO_SERVICO,DESCRICAO,NOME_PRESTADOR,QUANTIDADE,VALOR_COPARTICIPACAO)
         values (:seq,:num,:numusu,:comp,:respon,:numero,:nome_grande,:doc,to_date(:dt_atendimento,'dd/mm/yyyy'),to_date(:dt_atendimento_final,'dd/mm/yyyy'),:codigo_serv,:descricao,:nome_prest,:qty,:valor_copart)
         """
+    linha = [i+1985,231,21,22,List_Nome_prestador[i],40,List_Nome_Usuario[i],List_Numero_Documento[i],Data_Realizacao_Tratado[i],Data_Validade_Tratado[i],83537,List_Descricao_Procedimento[i],List_Nome_prestador[i],List_Qtde_Procedimento[i],List_Valor_Coparticipacao[i]]
     conector.executeSQL(sql,linha) # data direto no execute sql retorna erro.
-
-    #resultado.writelines(stringResultado)
-
     i = i + 1
-
-#print(List_Nome_prestador[0] + " " + List_Numero_Documento[0] + " " + List_Nome_Usuario[0] + " " + List_Numero_Doc_Origem[0])
-
-#lista tem 1493 elementos
-#print(vetorlinha[77])

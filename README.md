@@ -23,8 +23,7 @@ Algumas anotações que merecem atenção abaixo:
                                    dsn=dsn,
                                    encoding="UTF-8")
 <h4>
-    Sendo assim, pós conexão, sendo obrigatorio fazer um cursor para commit e push no banco de dados.
-    <br>Abaixo mais alguns Exemplos:</br>
+    Sendo assim, pós conexão, sendo obrigatorio fazer um cursor para commit e push no banco de dados. 
 <h4>
     
     # Primeiro a direção do banco:

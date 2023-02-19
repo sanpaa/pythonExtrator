@@ -1,16 +1,4 @@
 <h1 id="title">PyExtract </h1>
-<style>
-#title{
-    font-size:50px
-}
-#anotacoes {
-    font-size:30px
-
-}
-#extras {
-    font-size:30px
-}
-</style>
 
 <h4>Ultima atualização: 19/02/2023 </h4>
 <h2 id='anotacoes'>

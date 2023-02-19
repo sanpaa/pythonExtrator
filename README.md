@@ -1,4 +1,4 @@
-# PyExtract (Unimed Salto-Itu)
+# PyExtract
 <h4>Ultima atualização: 19/02/2023 </h4>
 <h2>
 Algumas anotações que merecem atenção abaixo:
@@ -35,4 +35,9 @@ Algumas anotações que merecem atenção abaixo:
     
     # E por fim, o commit que envia para o banco de dados:
     connection.commit()
-
+<h4>
+    E o mais importante de todos os comandos, o close da conexão:
+</h4>
+    
+    # Não podemos deixar a conexão aberta, mas a IDE do Python provavelmente irá alertar caso não feche.
+    cursor.close()

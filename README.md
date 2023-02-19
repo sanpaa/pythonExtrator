@@ -22,9 +22,10 @@ Algumas anotações que merecem atenção abaixo:
     connection = cx_Oracle.connect(user="usuario", password='senha',
                                    dsn=dsn,
                                    encoding="UTF-8")
+
 <h4>
     Sendo assim, pós conexão, sendo obrigatorio fazer um cursor para commit e push no banco de dados. 
-<h4>
+</h4>
     
     # Primeiro a direção do banco:
     cursor = connection.cursor()
@@ -34,9 +35,8 @@ Algumas anotações que merecem atenção abaixo:
     
     # E por fim, o commit que envia para o banco de dados:
     connection.commit()
-<h4>
-    E o mais importante de todos os comandos, o close da conexão:
-</h4>
+
+<h4> E o mais importante de todos os comandos, o close da conexão: </h4>
     
     # Não podemos deixar a conexão aberta, mas a IDE do Python provavelmente irá alertar caso não feche.
     cursor.close()

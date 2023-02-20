@@ -3,19 +3,17 @@ from datetime import datetime
 from watchdog.observers import Observer
 from watchdog.events import PatternMatchingEventHandler
 import subprocess
+import os
 
-    
-def getquery():
-    if len(query) == 0:
-        return 'Query vazia'
-    else:
-        return query
+
 def on_created(event):
     evento = f"{event.src_path} foi Criado \n"
     print(evento)
     arquivo_log.writelines(evento)
-    cmd = 'python extrator.py'
-    subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=False)
+    exec(open("./extrator.py").read())
+    exit()
+    # cmd = 'python extrator.py'
+    # subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=False)
 def on_deleted(event):
     evento = f"{event.src_path} foi Deletado \n"
     print(evento)
@@ -29,13 +27,18 @@ def on_moved(event):
     print(evento)
     arquivo_log.writelines(evento)
 
+def getquery():
+    query = open(f"C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\query.txt", 'r')
+    query = query.readlines()
+    if len(query) == 0:
+        return 'Query vazia'
+    else:
+        return query
 
 if __name__ == "__main__":
     data = datetime.today().strftime('%d-%m-%Y %H.%M.%S')
     arquivo_log = open(f"C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Log {data}.txt", 'w+')
 
-    query = open(f"C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\query.txt", 'r')
-    query = query.readlines()
     
     patterns = ["*"]
     ignore_patterns = None

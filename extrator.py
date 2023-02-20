@@ -4,7 +4,7 @@ from consumidor import tratamentotextosimples
 import os
 import subprocess
 
-def extrairdadosexcel(nomeentrada, nomesaida):
+def extrairdadosexcel(nomeentrada, nomesaida,df):
     file1 = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\" + nomesaida + ".txt", 'w+')
     for i in df["Planilha1"][nomeentrada]:
         b = i
@@ -21,28 +21,35 @@ if __name__ == '__main__':
     arquivo = getquery()
     arquivo = tratamentotextosimples(arquivo)
     print(arquivo[0])
+    continuar = 0
+    if arquivo[0] != 'Query vazia':
+        print("continuar 1")
+        continuar = 1
+    if arquivo[0] == 'Query vazia' or continuar == 0:
+        print("continuar 0")
+        print("Voltando pro observador...")
+        exec(open("./observador.py").read())
+        exit()
 
 
-    if arquivo == 'Query vazia':
-        raise SystemExit
-        cmd = 'python consumidor.py'
-        subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=False)
+    if continuar == 1 and arquivo[0] != 'Query vazia':
+        df = pd.read_excel(f'C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\{arquivo[0]}', None) #usecols="A,B,C,F
+        print(df['Planilha1']['Data Realizacao'])
 
-    df = pd.read_excel(f'C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\{arquivo[0]}', None) #usecols="A,B,C,F
+        extrairdadosexcel('Nome Prestador','Nome_Prestador',df)
+        extrairdadosexcel('Numero Documento','Numero_Documento',df)
+        extrairdadosexcel('Nome Usuario','Nome_Usuario',df)
+        extrairdadosexcel('Numero Doc Origem','Numero_Doc_Origem',df)
+        extrairdadosexcel('Data Realizacao','Data_Realizacao',df)
+        extrairdadosexcel('Data Realizacao','Data_Validade',df)
+        extrairdadosexcel('Cod Procedimento','Cod_Procedimento',df)
+        extrairdadosexcel('         Descricao Procedimento','Descricao_Procedimento',df)
+        extrairdadosexcel('Contratante','Contratante',df)
+        extrairdadosexcel('Qtde Procedimento','Qtde_Procedimento',df)
+        extrairdadosexcel('Valor Coparticipacao','Valor_Coparticipacao',df)
 
-    print(df['Planilha1']['Data Realizacao'])
+        print("Indo pro consumidor...")
+        exec(open("./consumidor.py").read())
+        exit()
 
-    extrairdadosexcel('Nome Prestador','Nome_Prestador')
-    extrairdadosexcel('Numero Documento','Numero_Documento')
-    extrairdadosexcel('Nome Usuario','Nome_Usuario')
-    extrairdadosexcel('Numero Doc Origem','Numero_Doc_Origem')
-    extrairdadosexcel('Data Realizacao','Data_Realizacao')
-    extrairdadosexcel('Data Realizacao','Data_Validade')
-    extrairdadosexcel('Cod Procedimento','Cod_Procedimento')
-    extrairdadosexcel('         Descricao Procedimento','Descricao_Procedimento')
-    extrairdadosexcel('Contratante','Contratante')
-    extrairdadosexcel('Qtde Procedimento','Qtde_Procedimento')
-    extrairdadosexcel('Valor Coparticipacao','Valor_Coparticipacao')
 
-    cmd = 'python consumidor.py'
-    subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=False)

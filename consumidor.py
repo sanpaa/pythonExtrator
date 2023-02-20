@@ -1,7 +1,6 @@
 import conector
 import datetime
-import os
-import subprocess
+
 def tratamentotextosimples(document):
     variavel = document
     variavel = str(variavel)
@@ -74,14 +73,14 @@ if __name__ == '__main__':
     i = 0
     while i < len(List_Numero_Documento):
         sql = """
-            insert into custom_tasy.AUX_copart_lojas_cem_fesp
+            insert into custom_tasy.AUX_copart_lojas_cem_fesp         
             (SEQ,NNUMEUSUA,NTITUUSUA,COMPETENCIA,RESPONSAVEL,NUMERO,NOME,DOC,DATA_ATENDIMENTO,DATA_VENCIMENTO,CODIGO_SERVICO,DESCRICAO,NOME_PRESTADOR,QUANTIDADE,VALOR_COPARTICIPACAO)
-            values (:seq,:num,:numusu,:comp,:respon,:numero,:nome_grande,:doc,to_date(:dt_atendimento,'dd/mm/yyyy'),to_date(:dt_atendimento_final,'dd/mm/yyyy'),:codigo_serv,:descricao,:nome_prest,:qty,:valor_copart)
-            """
-        linha = [i+1985,231,21,22,List_Nome_prestador[i],40,List_Nome_Usuario[i],List_Numero_Documento[i],Data_Realizacao_Tratado[i],Data_Validade_Tratado[i],83537,List_Descricao_Procedimento[i],List_Nome_prestador[i],List_Qtde_Procedimento[i],List_Valor_Coparticipacao[i]]
+            values 
+            (scgp.copart_lojas_cem_fesp_seq.nextval,:num,:numusu,:comp,:respon,:numero,:nome_grande,:doc,to_date(:dt_atendimento,'dd/mm/yyyy'),to_date(:dt_atendimento_final,'dd/mm/yyyy'),:codigo_serv,:descricao,:nome_prest,:qty,:valor_copart)
+        """
+        linha = [231,21,22,List_Nome_prestador[i],40,List_Nome_Usuario[i],List_Numero_Documento[i],Data_Realizacao_Tratado[i],Data_Validade_Tratado[i],83537,List_Descricao_Procedimento[i],List_Nome_prestador[i],List_Qtde_Procedimento[i],List_Valor_Coparticipacao[i]]
         conector.executeSQL(sql,linha) # data direto no execute sql retorna erro.
         i = i + 1
-else:
-    cmd = 'python observador.py'
-    subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=False)
+    exec(open("./observador.py").read())
+    exit()
 

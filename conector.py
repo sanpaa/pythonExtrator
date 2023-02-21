@@ -11,10 +11,14 @@ namedb = os.getenv("nm_dbora")
 
 cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\paulo.sanches\Desktop\instantclient_21_9")
 
+connection = cx_Oracle.connect(f"{userdb}/{passwdb}@{enderdb}/{namedb}")
+
 def executeSQL(sql,dados):
     connection = cx_Oracle.connect(f"{userdb}/{passwdb}@{enderdb}/{namedb}")
     cursor = connection.cursor()
     cursor.execute(sql,dados)
     connection.commit()
-    cursor.close()
 
+
+connection.commit()
+connection.close()

@@ -4,6 +4,7 @@ from consumidor import tratamentotextosimples
 import os
 import subprocess
 
+
 def extrairdadosexcel(nomeentrada, nomesaida,df):
     file1 = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\" + nomesaida + ".txt", 'w+')
     for i in df["Planilha1"][nomeentrada]:
@@ -34,7 +35,6 @@ if __name__ == '__main__':
 
     if continuar == 1 and arquivo[0] != 'Query vazia':
         df = pd.read_excel(f'C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\{arquivo[0]}', None) #usecols="A,B,C,F
-        print(df['Planilha1']['Data Realizacao'])
 
         extrairdadosexcel('Nome Prestador','Nome_Prestador',df)
         extrairdadosexcel('Numero Documento','Numero_Documento',df)

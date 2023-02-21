@@ -5,7 +5,6 @@ from watchdog.events import PatternMatchingEventHandler
 import subprocess
 import os
 
-
 def on_created(event):
     evento = f"{event.src_path} foi Criado \n"
     print(evento)

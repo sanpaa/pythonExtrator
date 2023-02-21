@@ -17,8 +17,23 @@ def tratamentotexto(document):
     variavel = variavel.replace("]","") # )
     variavel = variavel.replace("'","") # )
     variavel = variavel.strip() # )
+    print(variavel)
+    # variavel = variavel[]
+    variavel = variavel.split(',')
+    print(variavel)
+
+    return variavel
+
+def tratamentotexto2(document):
+    variavel = document
+    variavel = str(variavel)
+    variavel = variavel.replace("[","") # )
+    variavel = variavel.replace("]","") # )
+    variavel = variavel.replace("'","") # )
+    variavel = variavel.strip() # )
     variavel = variavel[1:]
     variavel = variavel.split(',')
+
     return variavel
 
 def tratamentodata(document):
@@ -59,8 +74,8 @@ if __name__ == '__main__':
     List_Numero_Documento = tratamentotexto(Numero_Documento)
     List_Nome_Usuario = tratamentotexto(Nome_Usuario)
     List_Numero_Doc_Origem = tratamentotexto(Numero_Doc_Origem)
-    List_Data_Realizacao = tratamentotexto(Data_Realizacao)
-    List_Data_Validade = tratamentotexto(Data_Validade)
+    List_Data_Realizacao = tratamentotexto2(Data_Realizacao)
+    List_Data_Validade = tratamentotexto2(Data_Validade)
     List_Descricao_Procedimento = tratamentotexto(Descricao_Procedimento)
     List_Contratante = tratamentotexto(Contratante)
     List_Qtde_Procedimento = tratamentotexto(Qtde_Procedimento)
@@ -70,17 +85,19 @@ if __name__ == '__main__':
     Data_Realizacao_Tratado = tratamentodata(List_Data_Realizacao)
     Data_Validade_Tratado = tratamentodata(List_Data_Validade)
 
+    print("pos 1: " + List_Numero_Documento[0])
     i = 0
-    while i < len(List_Numero_Documento):
+    while i < (len(List_Numero_Documento ) - 1):
         sql = """
             insert into custom_tasy.AUX_copart_lojas_cem_fesp         
             (SEQ,NNUMEUSUA,NTITUUSUA,COMPETENCIA,RESPONSAVEL,NUMERO,NOME,DOC,DATA_ATENDIMENTO,DATA_VENCIMENTO,CODIGO_SERVICO,DESCRICAO,NOME_PRESTADOR,QUANTIDADE,VALOR_COPARTICIPACAO)
             values 
-            (scgp.copart_lojas_cem_fesp_seq.nextval,:num,:numusu,:comp,:respon,:numero,:nome_grande,:doc,to_date(:dt_atendimento,'dd/mm/yyyy'),to_date(:dt_atendimento_final,'dd/mm/yyyy'),:codigo_serv,:descricao,:nome_prest,:qty,:valor_copart)
+            (custom_tasy.copart_lojas_cem_fesp_seq.nextval,:num,:numusu,:comp,:respon,:numero,:nome_grande,:doc,to_date(:dt_atendimento,'dd/mm/yyyy'),to_date(:dt_atendimento_final,'dd/mm/yyyy'),:codigo_serv,:descricao,:nome_prest,:qty,:valor_copart)
         """
         linha = [231,21,22,List_Nome_prestador[i],40,List_Nome_Usuario[i],List_Numero_Documento[i],Data_Realizacao_Tratado[i],Data_Validade_Tratado[i],83537,List_Descricao_Procedimento[i],List_Nome_prestador[i],List_Qtde_Procedimento[i],List_Valor_Coparticipacao[i]]
         conector.executeSQL(sql,linha) # data direto no execute sql retorna erro.
         i = i + 1
+    print("acabou, voltando a observar")
     exec(open("./observador.py").read())
     exit()
 

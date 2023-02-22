@@ -1,53 +1,13 @@
 import conector
-import datetime
+from datetime import datetime
+from observador import *
+from funcoes import *
+import time
 
-def tratamentotextosimples(document):
-    variavel = document
-    variavel = str(variavel)
-    variavel = variavel.replace("[","") # )
-    variavel = variavel.replace("]","") # )
-    variavel = variavel.replace("'","") # )
-    variavel = variavel.strip() # )
-    variavel = variavel.split(',')
-    return variavel
-def tratamentotexto(document):
-    variavel = document
-    variavel = str(variavel)
-    variavel = variavel.replace("[","") # )
-    variavel = variavel.replace("]","") # )
-    variavel = variavel.replace("'","") # )
-    variavel = variavel.strip() # )
-    print(variavel)
-    # variavel = variavel[]
-    variavel = variavel.split(',')
-    print(variavel)
-
-    return variavel
-
-def tratamentotexto2(document):
-    variavel = document
-    variavel = str(variavel)
-    variavel = variavel.replace("[","") # )
-    variavel = variavel.replace("]","") # )
-    variavel = variavel.replace("'","") # )
-    variavel = variavel.strip() # )
-    variavel = variavel[1:]
-    variavel = variavel.split(',')
-
-    return variavel
-
-def tratamentodata(document):
-    lista = []
-    for elemento in document:
-        data = str(elemento)
-        data = datetime.datetime.strptime(elemento, '%Y-%m-%d %H:%M:%S')
-        # data = data.strftime("%Y/%m/%d")
-        data = data.strftime("%d/%m/%Y")
-        data = str(data)
-        lista.append(data)
-    return lista
 
 if __name__ == '__main__':
+    data = getDataInicial()
+    arquivo_log = open(f"C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Log_banco_{data}.txt", 'w')
     Nome_prestador = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Nome_Prestador.txt", 'r')
     Nome_prestador = Nome_prestador.readlines()
     Numero_Documento = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Numero_Documento.txt", 'r')
@@ -74,19 +34,20 @@ if __name__ == '__main__':
     List_Numero_Documento = tratamentotexto(Numero_Documento)
     List_Nome_Usuario = tratamentotexto(Nome_Usuario)
     List_Numero_Doc_Origem = tratamentotexto(Numero_Doc_Origem)
-    List_Data_Realizacao = tratamentotexto2(Data_Realizacao)
-    List_Data_Validade = tratamentotexto2(Data_Validade)
+    List_Data_Realizacao = tratamentotexto(Data_Realizacao)
+    List_Data_Validade = tratamentotexto(Data_Validade)
     List_Descricao_Procedimento = tratamentotexto(Descricao_Procedimento)
     List_Contratante = tratamentotexto(Contratante)
     List_Qtde_Procedimento = tratamentotexto(Qtde_Procedimento)
     List_Valor_Coparticipacao = tratamentotexto(Valor_Coparticipacao)
 
     #Tratamento Especifico para Data
-    Data_Realizacao_Tratado = tratamentodata(List_Data_Realizacao)
-    Data_Validade_Tratado = tratamentodata(List_Data_Validade)
+    Data_Realizacao_Tratado = List_Data_Realizacao
+    Data_Validade_Tratado = List_Data_Validade
 
-    print("pos 1: " + List_Numero_Documento[0])
     i = 0
+    print(len(List_Numero_Documento))
+    lista_log = []
     while i < (len(List_Numero_Documento ) - 1):
         sql = """
             insert into custom_tasy.AUX_copart_lojas_cem_fesp         
@@ -95,9 +56,19 @@ if __name__ == '__main__':
             (custom_tasy.copart_lojas_cem_fesp_seq.nextval,:num,:numusu,:comp,:respon,:numero,:nome_grande,:doc,to_date(:dt_atendimento,'dd/mm/yyyy'),to_date(:dt_atendimento_final,'dd/mm/yyyy'),:codigo_serv,:descricao,:nome_prest,:qty,:valor_copart)
         """
         linha = [231,21,22,List_Nome_prestador[i],40,List_Nome_Usuario[i],List_Numero_Documento[i],Data_Realizacao_Tratado[i],Data_Validade_Tratado[i],83537,List_Descricao_Procedimento[i],List_Nome_prestador[i],List_Qtde_Procedimento[i],List_Valor_Coparticipacao[i]]
-        conector.executeSQL(sql,linha) # data direto no execute sql retorna erro.
+        # conector.executeSQL(sql,linha) # data direto no execute sql retorna erro.
+        lista_log.append(linha)
         i = i + 1
+    i = 0
+    for elemento in lista_log:
+        arquivo_log.writelines(str(i) + ': '+str(elemento)+'\n')
+        time.sleep(0.0001)
+        i = i + 1
+    arquivo_log.writelines(f"Foram inseridas {i} linhas.\n")
+    DataAgora = datetime.datetime.today().strftime('%d-%m-%Y %H.%M.%S')
+    arquivo_log.writelines("Na data e hora: " + DataAgora)
     print("acabou, voltando a observar")
+
     exec(open("./observador.py").read())
     exit()
 

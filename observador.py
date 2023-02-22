@@ -33,12 +33,18 @@ def getquery():
         return 'Query vazia'
     else:
         return query
+    data = datetime.today().strftime('%d-%m-%Y %H.%M')
+
+def getDataInicial():
+    data = datetime.today().strftime('%d-%m-%Y %H.%M')
+    return data
 
 if __name__ == "__main__":
-    data = datetime.today().strftime('%d-%m-%Y %H.%M.%S')
-    arquivo_log = open(f"C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Log {data}.txt", 'w+')
+    data = datetime.today().strftime('%d-%m-%Y %H.%M')
+    arquivo_log = open(f"C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Log_pasta_{data}.txt", 'w+')
 
-    
+
+
     patterns = ["*"]
     ignore_patterns = None
     ignore_directories = False

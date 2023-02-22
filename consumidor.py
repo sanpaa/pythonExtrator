@@ -77,8 +77,8 @@ if __name__ == '__main__':
     arquivo_log.writelines(f"\nForam inseridas {i} linhas.\n")
     arquivo_log.writelines("Na data e hora: " + datahora)
     arquivo_log.close()
-
-    moverArquivos = moverArquivos(data,datahora)
+    query = getquery()
+    moverArquivos = moverArquivos(data,datahora,query[0])
     if moverArquivos == 'Faltam arquivos.':
         print("Faltam arquivos, então, voltando pro extrator.")
         exec(open("./extrator.py").read())

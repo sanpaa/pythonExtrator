@@ -59,7 +59,7 @@ def tratamentodata(document):
         lista.append(data)
     return lista
 
-def moverArquivos(data,datahora):
+def moverArquivos(data,datahora,planilha):
     #Movendo arquivos
     dir = f'C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Processados\\{data}'
     dir2 = 'C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\'
@@ -67,13 +67,16 @@ def moverArquivos(data,datahora):
         os.mkdir(dir)
     except FileExistsError:
         print('Já existe.')
-    lista = ['Nome_Prestador','Numero_Documento','Nome_Usuario','Numero_Doc_Origem','Data_Realizacao','Data_Validade','Descricao_Procedimento','Contratante','Qtde_Procedimento','Valor_Coparticipacao']
+    lista = ['Nome_Prestador','Numero_Documento','Nome_Usuario','Numero_Doc_Origem','Data_Realizacao','Data_Validade','Descricao_Procedimento','Contratante','Qtde_Procedimento','Valor_Coparticipacao','Cod_Procedimento']
     try:
         for elemento in lista:
             variavel = elemento
             shutil.move(f'{dir2}{variavel}.txt', f'{dir}\\{variavel}.txt')
         variavel = f'Log_banco_{datahora}.txt'
         shutil.move(f'{dir2}{variavel}', f'{dir}\\{variavel}')
+        planilha
+        shutil.move(f'{dir2}{planilha}', f'{dir}\\{planilha}')
+
         a = print("Finalizados.")
     except FileNotFoundError:
         a = print("Faltam arquivos.")

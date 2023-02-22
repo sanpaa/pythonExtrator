@@ -1,5 +1,8 @@
 import pandas as pd
 import datetime
+import os
+import shutil
+
 
 #df.iloc[:,[6]] - Titulo da col
 #df.iloc[:,[6][0] - Conteudo da col
@@ -55,6 +58,27 @@ def tratamentodata(document):
         data = str(data)
         lista.append(data)
     return lista
+
+def moverArquivos(data,datahora):
+    #Movendo arquivos
+    dir = f'C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Processados\\{data}'
+    dir2 = 'C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\'
+    try:
+        os.mkdir(dir)
+    except FileExistsError:
+        print('Já existe.')
+    lista = ['Nome_Prestador','Numero_Documento','Nome_Usuario','Numero_Doc_Origem','Data_Realizacao','Data_Validade','Descricao_Procedimento','Contratante','Qtde_Procedimento','Valor_Coparticipacao']
+    try:
+        for elemento in lista:
+            variavel = elemento
+            shutil.move(f'{dir2}{variavel}.txt', f'{dir}\\{variavel}.txt')
+        variavel = f'Log_banco_{datahora}.txt'
+        shutil.move(f'{dir2}{variavel}', f'{dir}\\{variavel}')
+        a = print("Finalizados.")
+    except FileNotFoundError:
+        a = print("Faltam arquivos.")
+    return a
+
 
 
 def CriarArquivo(nome,conteudo):

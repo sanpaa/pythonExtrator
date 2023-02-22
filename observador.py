@@ -4,11 +4,13 @@ from watchdog.observers import Observer
 from watchdog.events import PatternMatchingEventHandler
 import subprocess
 import os
+import shutil
+
 
 def on_created(event):
     evento = f"{event.src_path} foi Criado \n"
     print(evento)
-    arquivo_log.writelines(evento)
+    # arquivo_log.writelines(evento)
     exec(open("./extrator.py").read())
     exit()
     # cmd = 'python extrator.py'
@@ -16,15 +18,15 @@ def on_created(event):
 def on_deleted(event):
     evento = f"{event.src_path} foi Deletado \n"
     print(evento)
-    arquivo_log.writelines(evento)
+    # arquivo_log.writelines(evento)
 def on_modified(event):
     evento = f"{event.src_path} foi Modificado \n"
     print(evento)
-    arquivo_log.writelines(evento)
+    # arquivo_log.writelines(evento)
 def on_moved(event):
     evento = f"{event.src_path} foi Movido \n"
     print(evento)
-    arquivo_log.writelines(evento)
+    # arquivo_log.writelines(evento)
 
 def getquery():
     query = open(f"C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\query.txt", 'r')
@@ -34,14 +36,19 @@ def getquery():
     else:
         return query
     data = datetime.today().strftime('%d-%m-%Y %H.%M')
+    query.close()
+
+def getDataHoraInicial():
+    data = datetime.today().strftime('%d-%m-%Y %H.%M')
+    return data
 
 def getDataInicial():
-    data = datetime.today().strftime('%d-%m-%Y %H.%M')
+    data = datetime.today().strftime('%d-%m-%Y')
     return data
 
 if __name__ == "__main__":
     data = datetime.today().strftime('%d-%m-%Y %H.%M')
-    arquivo_log = open(f"C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Log_pasta_{data}.txt", 'w+')
+    # arquivo_log = open(f"C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Log_pasta_{data}.txt", 'w+')
 
 
 

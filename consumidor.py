@@ -3,31 +3,39 @@ from datetime import datetime
 from observador import *
 from funcoes import *
 import time
+import os
+import shutil
 
 
 if __name__ == '__main__':
+    datahora = getDataHoraInicial()
     data = getDataInicial()
-    arquivo_log = open(f"C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Log_banco_{data}.txt", 'w')
-    Nome_prestador = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Nome_Prestador.txt", 'r')
-    Nome_prestador = Nome_prestador.readlines()
-    Numero_Documento = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Numero_Documento.txt", 'r')
-    Numero_Documento = Numero_Documento.readlines()
-    Nome_Usuario = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Nome_Usuario.txt", 'r')
-    Nome_Usuario = Nome_Usuario.readlines()
-    Numero_Doc_Origem = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Numero_Doc_Origem.txt", 'r')
-    Numero_Doc_Origem = Numero_Doc_Origem.readlines()
-    Data_Realizacao = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Data_Realizacao.txt", 'r')
-    Data_Realizacao = Data_Realizacao.readlines()
-    Data_Validade = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Data_Validade.txt", 'r')
-    Data_Validade = Data_Validade.readlines()
-    Descricao_Procedimento = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Descricao_Procedimento.txt", 'r')
-    Descricao_Procedimento = Descricao_Procedimento.readlines()
-    Contratante = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Contratante.txt", 'r')
-    Contratante = Contratante.readlines()
-    Qtde_Procedimento = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Qtde_Procedimento.txt", 'r')
-    Qtde_Procedimento = Qtde_Procedimento.readlines()
-    Valor_Coparticipacao = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Valor_Coparticipacao.txt", 'r')
-    Valor_Coparticipacao = Valor_Coparticipacao.readlines()
+    try:
+        arquivo_log = open(f"C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Log_banco_{datahora}.txt", 'w')
+        Nome_prestador = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Nome_Prestador.txt", 'r')
+        Nome_prestador = Nome_prestador.readlines()
+        Numero_Documento = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Numero_Documento.txt", 'r')
+        Numero_Documento = Numero_Documento.readlines()
+        Nome_Usuario = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Nome_Usuario.txt", 'r')
+        Nome_Usuario = Nome_Usuario.readlines()
+        Numero_Doc_Origem = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Numero_Doc_Origem.txt", 'r')
+        Numero_Doc_Origem = Numero_Doc_Origem.readlines()
+        Data_Realizacao = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Data_Realizacao.txt", 'r')
+        Data_Realizacao = Data_Realizacao.readlines()
+        Data_Validade = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Data_Validade.txt", 'r')
+        Data_Validade = Data_Validade.readlines()
+        Descricao_Procedimento = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Descricao_Procedimento.txt", 'r')
+        Descricao_Procedimento = Descricao_Procedimento.readlines()
+        Contratante = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Contratante.txt", 'r')
+        Contratante = Contratante.readlines()
+        Qtde_Procedimento = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Qtde_Procedimento.txt", 'r')
+        Qtde_Procedimento = Qtde_Procedimento.readlines()
+        Valor_Coparticipacao = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Valor_Coparticipacao.txt", 'r')
+        Valor_Coparticipacao = Valor_Coparticipacao.readlines()
+    except FileNotFoundError:
+        print("Faltam arquivos, então, voltando pro extrator.")
+        exec(open("./extrator.py").read())
+        exit()
 
     #Tratamento de Texto/Data
     List_Nome_prestador = tratamentotexto(Nome_prestador)
@@ -59,14 +67,23 @@ if __name__ == '__main__':
         # conector.executeSQL(sql,linha) # data direto no execute sql retorna erro.
         lista_log.append(linha)
         i = i + 1
+
+
     i = 0
     for elemento in lista_log:
         arquivo_log.writelines(str(i) + ': '+str(elemento)+'\n')
         time.sleep(0.0001)
         i = i + 1
-    arquivo_log.writelines(f"Foram inseridas {i} linhas.\n")
-    DataAgora = datetime.datetime.today().strftime('%d-%m-%Y %H.%M.%S')
-    arquivo_log.writelines("Na data e hora: " + DataAgora)
+    arquivo_log.writelines(f"\nForam inseridas {i} linhas.\n")
+    arquivo_log.writelines("Na data e hora: " + datahora)
+    arquivo_log.close()
+
+    moverArquivos = moverArquivos(data,datahora)
+    if moverArquivos == 'Faltam arquivos.':
+        print("Faltam arquivos, então, voltando pro extrator.")
+        exec(open("./extrator.py").read())
+        exit()
+    #Final
     print("acabou, voltando a observar")
 
     exec(open("./observador.py").read())

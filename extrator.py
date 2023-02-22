@@ -51,11 +51,11 @@ if __name__ == '__main__':
         CriarArquivo(variavel,numero_doc_origem)
 
 
-        data_realização = df.iloc[:, [3][0]]  # F
-        data_realização = TratadorDeTextoComplexo(data_realização)
-        data_realização = tratamentodata(data_realização)
+        data_realizacao = df.iloc[:, [3][0]]  # F
+        data_realizacao = TratadorDeTextoComplexo(data_realizacao)
+        data_realizacao = tratamentodata(data_realizacao)
         variavel = 'Data_Realizacao'
-        CriarArquivo(variavel,data_realização)
+        CriarArquivo(variavel,data_realizacao)
 
         data_validade = df.iloc[:, [3][0]]
         data_validade = TratadorDeTextoComplexo(data_validade)

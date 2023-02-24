@@ -17,7 +17,9 @@ def executeSQL(sql,dados):
     connection = cx_Oracle.connect(f"{userdb}/{passwdb}@{enderdb}/{namedb}")
     cursor = connection.cursor()
     cursor.execute(sql,dados)
+    Linhas_inseridas = cursor.rowcount
     connection.commit()
+    return Linhas_inseridas
 
 
 connection.commit()

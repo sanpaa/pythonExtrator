@@ -11,7 +11,6 @@ if __name__ == '__main__':
     datahora = getDataHoraInicial()
     data = getDataInicial()
     try:
-        arquivo_log = open(f"C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Log_banco_{datahora}.txt", 'w')
         Nome_prestador = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Nome_Prestador.txt", 'r')
         Nome_prestador = Nome_prestador.readlines()
         Numero_Documento = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Numero_Documento.txt", 'r')
@@ -33,7 +32,7 @@ if __name__ == '__main__':
         Valor_Coparticipacao = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Valor_Coparticipacao.txt", 'r')
         Valor_Coparticipacao = Valor_Coparticipacao.readlines()
     except FileNotFoundError:
-        print("Faltam arquivos, então, voltando pro extrator.")
+        print("Faltam arquivos,ou o arquivo não está na pasta correta. Então, voltando pro extrator.")
         exec(open("./extrator.py").read())
         exit()
 
@@ -64,17 +63,21 @@ if __name__ == '__main__':
             (custom_tasy.copart_lojas_cem_fesp_seq.nextval,:num,:numusu,:comp,:respon,:numero,:nome_grande,:doc,to_date(:dt_atendimento,'dd/mm/yyyy'),to_date(:dt_atendimento_final,'dd/mm/yyyy'),:codigo_serv,:descricao,:nome_prest,:qty,:valor_copart)
         """
         linha = [231,21,22,List_Nome_prestador[i],40,List_Nome_Usuario[i],List_Numero_Documento[i],Data_Realizacao_Tratado[i],Data_Validade_Tratado[i],83537,List_Descricao_Procedimento[i],List_Nome_prestador[i],List_Qtde_Procedimento[i],List_Valor_Coparticipacao[i]]
-        # conector.executeSQL(sql,linha) # data direto no execute sql retorna erro.
+        executor = conector.executeSQL(sql,linha) # data direto no execute sql retorna erro.
         lista_log.append(linha)
         i = i + 1
-
-
+    try:
+        arquivo_log = open(f"C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Log_banco_{datahora}.txt", 'w')
+    except FileNotFoundError:
+        print("Arquivos log (banco) não encontrado, continuando.")
     i = 0
     for elemento in lista_log:
         arquivo_log.writelines(str(i) + ': '+str(elemento)+'\n')
         time.sleep(0.0001)
         i = i + 1
-    arquivo_log.writelines(f"\nForam inseridas {i} linhas.\n")
+    print(executor)
+    qtde_linhas = executor
+    arquivo_log.writelines(f"\nForam inseridas {qtde_linhas} linhas.\n")
     arquivo_log.writelines("Na data e hora: " + datahora)
     arquivo_log.close()
     query = getquery()

@@ -26,10 +26,8 @@ if __name__ == '__main__':
         print(arquivo[0])
         continuar = 0
         if arquivo[0] != 'Query vazia':
-            print("continuar 1")
             continuar = 1
         if arquivo[0] == 'Query vazia' or continuar == 0:
-            print("continuar 0")
             print("Voltando pro observador...")
             exec(open("./observador.py").read())
             exit()

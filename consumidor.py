@@ -55,11 +55,11 @@ if __name__ == '__main__':
     i = 0
     print(len(List_Numero_Documento))
     lista_log = []
-    while i < (len(List_Numero_Documento ) - 1):
+    while i < len(List_Numero_Documento):
         sql = """
-            insert into custom_tasy.AUX_copart_lojas_cem_fesp         
+            insert into custom_tasy.AUX_copart_lojas_cem_fesp
             (SEQ,NNUMEUSUA,NTITUUSUA,COMPETENCIA,RESPONSAVEL,NUMERO,NOME,DOC,DATA_ATENDIMENTO,DATA_VENCIMENTO,CODIGO_SERVICO,DESCRICAO,NOME_PRESTADOR,QUANTIDADE,VALOR_COPARTICIPACAO)
-            values 
+            values
             (custom_tasy.copart_lojas_cem_fesp_seq.nextval,:num,:numusu,:comp,:respon,:numero,:nome_grande,:doc,to_date(:dt_atendimento,'dd/mm/yyyy'),to_date(:dt_atendimento_final,'dd/mm/yyyy'),:codigo_serv,:descricao,:nome_prest,:qty,:valor_copart)
         """
         linha = [231,21,22,List_Nome_prestador[i],40,List_Nome_Usuario[i],List_Numero_Documento[i],Data_Realizacao_Tratado[i],Data_Validade_Tratado[i],83537,List_Descricao_Procedimento[i],List_Nome_prestador[i],List_Qtde_Procedimento[i],List_Valor_Coparticipacao[i]]
@@ -81,8 +81,9 @@ if __name__ == '__main__':
     arquivo_log.writelines("Na data e hora: " + datahora)
     arquivo_log.close()
     query = getquery()
+    arquivo_log.close()
     moverArquivos = moverArquivos(data,datahora,query[0])
-    if moverArquivos == 'Faltam arquivos.':
+    if moverArquivos == 'Faltam Arquivos, ou o arquivo esta aberto.':
         print("Faltam arquivos, então, voltando pro extrator.")
         exec(open("./extrator.py").read())
         exit()
@@ -90,5 +91,7 @@ if __name__ == '__main__':
     print("acabou, voltando a observar")
 
     exec(open("./observador.py").read())
+    time.sleep(2)
     exit()
+    time.sleep(2)
 

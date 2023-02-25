@@ -12,17 +12,15 @@ def TratadorDeTextoComplexo(coluna):
     for dados in coluna:
         dados = str(dados)
         dados = dados.replace(f'\n{i}', ",")
-        if dados == "Nan" or dados == "nan" or dados == "NaN":
+        if dados == "Nan" or dados == "nan" or dados == "NaN" or dados == "Nat":
             dados = ""
         dados = dados.replace("[", "")
         dados = dados.replace("]", "")
         dados = dados.replace("'", "")
         auxiliar.append(dados)
         i = i + 1
-    i = 0   # se existir mais linhas abaixo, se não, só retirar o while abaixo
-    while i < 8:
+    while auxiliar[-1] == 'Nan' or auxiliar[-1] == 'NaN' or auxiliar[-1] == 'nan' or auxiliar[-1] == 'NaT' or auxiliar[-1] == '':
         auxiliar.pop()
-        i = i + 1
     return auxiliar
 
 def tratamentotextosimples(document):
@@ -41,10 +39,8 @@ def tratamentotexto(document):
     variavel = variavel.replace("]","") # )
     variavel = variavel.replace("'","") # )
     variavel = variavel.strip() # )
-    print(variavel)
     # variavel = variavel[]
     variavel = variavel.split(',')
-    print(variavel)
 
     return variavel
 
@@ -76,19 +72,25 @@ def moverArquivos(data,datahora,planilha):
         shutil.move(f'{dir2}{variavel}', f'{dir}\\{variavel}')
         planilha
         shutil.move(f'{dir2}{planilha}', f'{dir}\\{planilha}')
-
-        a = print("Finalizados.")
-    except FileNotFoundError:
-        a = print("Faltam arquivos.")
-    return a
+        print("Finalizados.")
+    except (FileNotFoundError,PermissionError) as error :
+        a = 'Faltam Arquivos, ou o arquivo esta aberto.'
+        print(error)
+        return a
 
 
 
 def CriarArquivo(nome,conteudo):
     variavel = nome
     nome = open(f"C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\{nome}.txt", 'w+')
+    tamarray = len(conteudo)
+    contador = 0
     for elemento in conteudo:
+        if contador == tamarray-1:
+            nome.writelines(elemento)
+            continue
         nome.writelines(elemento + ',')
+        contador = contador + 1
     nome.close()
 # file1 = open("C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\teste4.txt", 'w+')
 # for i in descricao_procedimento:

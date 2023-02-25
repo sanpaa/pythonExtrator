@@ -6,7 +6,6 @@ import subprocess
 import os
 import shutil
 
-
 def on_created(event):
     evento = f"{event.src_path} foi Criado \n"
     print(evento)
@@ -47,10 +46,9 @@ def getDataInicial():
     return data
 
 if __name__ == "__main__":
+    time.sleep(2)
     data = datetime.today().strftime('%d-%m-%Y %H.%M')
     # arquivo_log = open(f"C:\\Users\\paulo.sanches\\Desktop\\TestePastinha\\Log_pasta_{data}.txt", 'w+')
-
-
 
     patterns = ["*"]
     ignore_patterns = None

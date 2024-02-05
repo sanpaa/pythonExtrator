@@ -46,7 +46,7 @@ Algumas anotações que merecem atenção abaixo:
 <h2 id='extras'> Extras: </h2>
 <h4> Como usar select pelo Python</h4>
 
-    # sqlTxt = """select * from custom_tasy.AUX_copart_lojas_cem_fesp"""
+    # sqlTxt = """select * from OWNER.AUX_TABELA"""
     # row = cursor.fetchone()
     # b = row
     # b = str(b)
